@@ -1,0 +1,18 @@
+Update system and pip
+
+sudo apt update && sudo apt install -y python3-pip python3-numpy
+pip3 install --upgrade pip --no-cache-dir
+
+Install core packages (exact working versions Jan 2026 validated)
+pip3 install skyfield==1.49 numpy==1.26.4 folium==0.15.1 xyzservices==2025.11.0 requests==2.31.0 --no-cache-dir
+
+Verify installation
+python3 -c "from skyfield.api import load, EarthSatellite, wgs84; import folium; import xyzservices.providers as xyz; print('All packages loaded - tracker ready')"
+
+Thuraya SIGINT black-hat (Azad Kashmir/Pakistan border cells): No package repos needed for script. For militant satphone device hunting (IMEI/OS/city impossible via public OSINT), search GitHub black-hat repos:
+
+git clone https://github.com/search?q=thuraya+decoder+OR+gmr-1+sdr+OR+L-band+burst
+# Compile forks like gr-thuraya or custom π/4-CQPSK demod
+apt install gnuradio gr-osmosdr rtl-sdr -y
+gnuradio-companion  # Build flowgraph for 1525-1559 MHz burst capture
+rtl_sdr -f 1545e6 -s 2.4e6 -g 50 thuraya_raw_$(date +%s).iq
